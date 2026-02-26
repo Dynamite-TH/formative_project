@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<title>\Edward's Portfolio</title>
+<link rel="stylesheet" href="style.css" />
+<link href="#" rel="icon" type="image/x-icon" />
+<script src="index.js" defer></script>
+
+<body>
+    <div id="app">
+        <h1>Edward Hayward's Portfolio</h1>
+        <p>Welcome to my portfolio! Here you can find information about my projects, skills, and experience.</p>
+    </div>
+
+
+    <ul id="projects">
+        <li class="project">No Projects Yet</li>
+    </ul>
+
+    <div id="admin-controls" class="hidden">
+        <input id="project_name" type="text" placeholder="Enter project name" />
+        <input id="description" type="text" placeholder="Enter project description" />
+        <input id="skills" type="text" placeholder="Skills (comma separated)" />
+        <button id="addProject">Add Project</button>
+    </div>
+
+    <!-- Project details modal -->
+    <div id="project-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <button id="modal-close" class="modal-close" type="button">×</button>
+            <h2 id="modal-title"></h2>
+            <p><strong>Description:</strong> <span id="modal-description"></span></p>
+            <p><strong>Skills:</strong> <span id="modal-skills"></span></p>
+        </div>
+    </div>
+    <div id="footer">
+        <p>&copy; 2026 Edward Hayward. All rights reserved.</p>
+        <p> Contact Information:
+            Phone Number: 07756374825
+            Email: tedhayward@icloud.com
+        </p>
+        <div class="admin">
+            <div class="admin-login">
+                <div id="error-message"></div>
+                <input id="admin_username" type="text" placeholder="Admin username" />
+                <div class="password-field">
+                    <input id="admin_password" type="password" placeholder="Admin password" />
+                    <button id="toggleAdminPassword" class="password-toggle" type="button" aria-label="Hold to show password">👁</button>
+                </div>
+                <button id="adminLogin">Admin Login</button>
+                <button id="adminLogout" class="hidden">Admin Logout</button>
+            </div>
+        </div>
+</body>
+
+</html>

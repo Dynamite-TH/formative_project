@@ -109,6 +109,33 @@ async function adminLogin() {
 }
 
 function prepareHandles() {
+    const selectors = [
+        '#projects',
+        '#admin_username',
+        '#admin_password',
+        '#toggleAdminPassword',
+        '#adminLogin',
+        '#adminLogout',
+        '#admin-controls',
+        '#project_name',
+        '#description',
+        '#skills',
+        '#addProject',
+        '#error-message',
+        '#project-modal',
+        '#modal-close',
+        '#modal-title',
+        '#modal-description',
+        '#modal-skills'
+
+    ];
+
+    selectors.forEach(selector => {
+        const element = document.querySelector(selector);
+        if (!element) {
+            console.error(`Element not found for selector: ${selector}`);
+        }
+    });
     el.projects = document.querySelector('#projects');
     el.adminUsername = document.querySelector('#admin_username');
     el.adminPassword = document.querySelector('#admin_password');

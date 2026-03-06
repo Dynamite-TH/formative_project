@@ -1,10 +1,12 @@
 import express from "express";
 import { randomUUID } from "crypto";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 const app = express();
 
 
 app.use(express.static('webpage'));
-app.use(express.json());
 
 import * as dotenv from 'dotenv';
 
@@ -20,35 +22,27 @@ const adminCredentials = {
 
 const activeAdminTokens = new Set();
 
-let projects = [
-    {
-        id: 1,
-        name: "Project 1",
-        description: "This is the first project.",
-        skills: ["HTML", "CSS"]
-    },
-    {
-        id: 2,
-        name: "Project 2",
-        description: "This is the second project.",
-        skills: ["JavaScript", "Node.js"]
-    }
-];
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectsFilePath = path.join(__dirname, "projects.json");
+const projects = JSON.parse(fs.readFileSync(projectsFilePath, "utf8"));
 
-function getprojects(req, res) {
+async function getprojects(req, res) {
     res.json(projects);
 }
 
-function getproject(req, res) {
+
+async function getproject(req, res) {
     for (const project of projects) {
         if (project.id === parseInt(req.params.id)) {
-            res.json(project);
+            res.status(201).json(project);
             return;
         }
     }
     res.status(404).json({ error: "Project not found" });
 }
-function addproject(req, res) {
+
+async function addproject(req, res) {
     const newProject = {
         id: projects.length + 1,
         name: req.body.name,
@@ -59,7 +53,7 @@ function addproject(req, res) {
     res.status(201).json(newProject);
 }
 
-function adminLogin(req, res) {
+async function adminLogin(req, res) {
     const username = (req.body?.username || "").trim();
     const password = (req.body?.password || "").trim();
 
@@ -73,7 +67,7 @@ function adminLogin(req, res) {
     res.json({ token });
 }
 
-function requireAdmin(req, res, next) {
+async function requireAdmin(req, res, next) {
     const authHeader = req.headers.authorization || "";
     const [scheme, token] = authHeader.split(" ");
 
